@@ -214,7 +214,7 @@ Angular's **ng-repeat** is a powerful tool to display the list of data in repeat
 User name property is displayed in top menu in Angular markup as {{backend.userName}}.
 
 ### 5. Editing data
-Remote object's properties can be edited with Angular's **ng-model** directive as usual $sope variables. In our example though, we edit a temporary $scope variable newName, and assign it to Backend's userName when user confirms modification in Profile dialog: 
+Remote object's properties can be edited with Angular's **ng-model** directive as usual $sope variables. In our example though, we edit a temporary $scope variable newName, and assign it to Backend's userName when the user confirms modification in the Profile dialog: 
 
 ```javascript
   /* show profile dialog */
