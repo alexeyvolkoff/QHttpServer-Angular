@@ -61,7 +61,7 @@ int main(int argc, char *argv[])
 
     /* HTTP server for providing content */
     QHttpServer httpServer;
-    /* Websocket server for comminication */
+    /* Websocket server for communication */
     QWebSocketServer wsServer("Angular Demo",  QWebSocketServer::NonSecureMode);
     /* Backend for Websocket server */
     Backend backend(&wsServer);

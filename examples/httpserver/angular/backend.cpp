@@ -5,9 +5,9 @@ Backend::Backend(QWebSocketServer *server): QObject(server),
 {
 	m_userName = "Valerie Luna";
 	m_items = QStringList() << "Milk" << "Bread" << "Cheese" << "Beer";
-	//register self in javascript as "backend" object
+	//Register backend instance in JavaScript as "backend" object
 	m_webChannel.registerObject(QStringLiteral("backend"), this);
-	// setup web channel
+	//Setup Web Channel
 	connect(&m_clientWrapper, &WebSocketClientWrapper::clientConnected,  &m_webChannel, &QWebChannel::connectTo);
 }
 

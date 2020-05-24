@@ -472,7 +472,7 @@
 				<!-- Card Body -->
 				<div class="card-body">
 					<div class="flex-row">
-						<div class="mb-4 small d-flex flex-row justify-content-between" ng-repeat="item in products">
+						<div class="mb-4 small d-flex flex-row justify-content-between" ng-repeat="item in backend.items">
 							<span class="mr-2 pull-left"><i class="fas fa-check text-primary"></i> {{item}}</span>
 							<span class="mr-2 pull-right" style="cursor: pointer;" ng-click="removeItem($index)"><i class="fas fa-times-circle text-secondary"></i></span>
 						</div>

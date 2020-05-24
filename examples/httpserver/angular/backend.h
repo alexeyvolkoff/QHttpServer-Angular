@@ -21,16 +21,16 @@ public:
 	QString getUserName() { return m_userName; }
 	QStringList getItems() { return  m_items; }
 
-	/* Javascript interface - properties */
+	/* JavaScript interface - properties */
 	Q_PROPERTY(QStringList items READ getItems CONSTANT)
 	Q_PROPERTY(QString userName READ getUserName WRITE setUserName NOTIFY userNameChanged)
 
-	/* Javascript interface - methods */
+	/* JavaScript interface - methods */
 public slots:
 	void addItem(const QString& item);
 	void removeItem(const QString& item);
 
-	/* Javascript interface - events */
+	/* JavaScript interface - events */
 signals:
     void itemAdded(const QString& item);
     void itemRemoved(const QString& item);
