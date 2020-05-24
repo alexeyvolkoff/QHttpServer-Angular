@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>assets/img/qt-logo.png</file>
+        <file>assets/img/angular-logo.png</file>
+    </qresource>
+</RCC>

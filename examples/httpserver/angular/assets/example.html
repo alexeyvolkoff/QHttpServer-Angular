@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Angular Demo for QHttpServer</title>
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script src="qwebchannel.js"></script>
+<body>
+
+<script>
+var app = angular.module("myShoppingList", []);
+app.controller("myCtrl", function($scope) {
+	$scope.products = ["Milk", "Bread", "Cheese"];
+	$scope.addItem = function () {
+		$scope.products.push($scope.addMe);
+	}
+	$scope.removeItem = function (x) {
+		$scope.products.splice(x, 1);
+	}
+});
+</script>
+
+<img src="/qt-logo.png"> <img src="/angular-logo.png">
+<h2>Shopping list</h2>
+<div ng-app="myShoppingList" ng-controller="myCtrl">
+  <ul>
+	<li ng-repeat="x in products">{{x}} <span style="cursor: pointer;" ng-click="removeItem($index)">x</span></li>
+  </ul>
+  <input ng-model="addMe">
+  <button ng-click="addItem()">Add</button>
+</div>
+
+<p>Click the x to remove an item from list.</p>
+
+</body>
+</html>

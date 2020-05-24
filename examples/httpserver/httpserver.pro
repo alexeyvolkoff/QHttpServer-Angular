@@ -2,5 +2,6 @@ TEMPLATE = subdirs
 
 SUBDIRS = \
     afterrequest \
-    simple
+	simple \
+	angular
 

@@ -38,6 +38,7 @@ tst_*~
 # Generic directories
 .metadata/
 .pc/
+build/
 debug/
 release/
 tmp/
