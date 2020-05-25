@@ -34,16 +34,16 @@ httpServer.route("/<arg>", [assetsRootDir] (const QUrl &url) {
     return QHttpServerResponse::fromFile(assetsRootDir + QStringLiteral("/%1").arg(url.path()));
 });
 ```
-It is also possible to provide the file right from the application's resource by prepanding the relative path with the ":/" prefix:
+It is also possible to provide the files right from the application's resource by prepanding the relative path extracted from url with ":/" prefix:
 ```c++
 httpServer.route("/<arg>", [assetsRootDir] (const QUrl &url) {
     return QHttpServerResponse::fromFile(QStringLiteral(":/assets/%1").arg(url.path()));
 });
 ```
-Do not forget to add the file to project's *.qrc* resource list.
+Do not forget to add your files to project's *.qrc* resource list.
 
 ### 2. Backend class
-The Backend class is much self-explaining. For our example, we expose userName and item properties.  The only thing to mention in regard of read/write properies is mandatory NOTIFY member in Q_PROPERTY definition.
+The Backend class is much self-explaining. For our example, we expose userName and items properties.  The only thing to mention in regard of read/write properies is mandatory NOTIFY member in Q_PROPERTY definition. Public slots and signals are also exposed.
 ```c++
 class Backend: public QObject
 {
@@ -97,21 +97,21 @@ Events get fired from the property setters and public slots:
 void Backend::setUserName(const QString &userName)
 {
 	m_userName = userName;
-  /* firing JavaScript event */
+  	/* firing JavaScript event */
 	emit userNameChanged(userName);
 }
 
 void Backend::addItem(const QString &item)
 {
 	m_items.append(item);
-  /* firing JavaScript event */
+  	/* firing JavaScript event */
 	emit itemAdded(item);
 }
 
 void Backend::removeItem(const QString &item)
 {
 	m_items.removeAll(item);
-  /* firing JavaScript event */
+  	/* firing JavaScript event */
 	emit itemRemoved(item);
 }
 
@@ -120,8 +120,8 @@ void Backend::removeItem(const QString &item)
 ### 3. Connecting to Backend and getting data
 As soon as websocket is connected to QWebSocketServer, we request the backend object and make it global across our Angular $scope:
 ```javascript
-    /* Websocket communication */
-		$scope.wsUrl = (window.location.protocol === 'https:' ? 'wss://' : 'ws://') +  window.location.hostname + ':8001';
+    	/* Websocket communication */
+	$scope.wsUrl = (window.location.protocol === 'https:' ? 'wss://' : 'ws://') +  window.location.hostname + ':8001';
 		$scope.notificationSocket = new WebSocket($scope.wsUrl);
 
 		if ($scope.notificationSocket)
@@ -135,7 +135,7 @@ As soon as websocket is connected to QWebSocketServer, we request the backend ob
 					$scope.products = $scope.backend.items;
 		};
 ```
-We also get backend'd items property to display it as list with **ng-repeat** directive. 
+We also get backend's items property to display it as list with **ng-repeat** directive. 
 
 ### 4. Invoking mothods
 C++ methods declared as **public slots** are becoming JavaScript object's methods that can be invoked transparently:
@@ -204,7 +204,7 @@ Angular's **ng-repeat** is a powerful tool to display the list of data in repeat
 				<input type="text" class="form-control bg-light border-0 small" ng-model="addMe" placeholder="Add item" aria-label="Add" aria-describedby="basic-addon2">
 				<div class="input-group-append">
 				<button class="btn btn-primary" type="button" ng-click="addItem()">
-							<i class="fas fa-plus fa-sm"></i>
+					<i class="fas fa-plus fa-sm"></i>
 				</button>
 			</div>
 		</div>
@@ -217,7 +217,7 @@ User name property is displayed in top menu in Angular markup as {{backend.userN
 Remote object's properties can be edited with Angular's **ng-model** directive as usual $sope variables. In our example though, we edit a temporary $scope variable newName, and assign it to Backend's userName when the user confirms modification in the Profile dialog: 
 
 ```javascript
-  /* show profile dialog */
+	/* show profile dialog */
 	$scope.showProfileDialog = function() {
 			$scope.newName = $scope.backend.userName;
 			$( "#profile" ).modal('show');
