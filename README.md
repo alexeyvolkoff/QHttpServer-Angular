@@ -18,9 +18,9 @@ The purpose of this app is to demonstrate how to run modern frontend atop of C++
 You can add/remove items to the Shopping list and modify your user name in the Profile dialog. As user adds/removes data or changes the name, notifications from backend get displayed in the Notifications widget. 
 
 # How it works
-Most of complexities are hidden under the hood. While QHttpServer serves plain HTML pages, WebSocketClientWrapper connects WebSocket used by JavaScript to C++ class Backend (QObject descendant) running in server. Both communicate with each other in their native way: JavaScript sees Backend as a JavaScript object, invokes its methods, gets/sets properies, subscribes to events (signals). Backend, on the other hand, behaves as a normal QObject, client-agnostically:  it just provides slots and emits signals as usual, event handlers are getting fired in JavaSript without extra coding.  Angular (formely AngularJS) framework allows you to display your backend's data in DOM elements as well as edit QObject's properties right away in **ng-model** directive with minimal coding. 
+Most of complexities are hidden under the hood. While QHttpServer serves plain HTML pages, WebSocketClientWrapper connects WebSocket used by JavaScript to C++ class Backend (QObject descendant) running in server. Both communicate with each other in their native way: JavaScript sees Backend as a JavaScript object, invokes its methods, gets/sets properies, subscribes to events (signals). Backend, on the other hand, behaves as an ordinary QObject, client-agnostically:  it just provides slots and emits signals. Event handlers are getting fired in JavaSript without extra coding.  Angular (formely AngularJS) framework allows you to display your backend's data in DOM elements as well as edit QObject's properties right away in **ng-model** directive with minimal coding. 
 
-### 1. Serving the plain html pages
+### 1. Serving plain html pages
 We serve static html pages from the examples/angular/assets directory:
 ```c++
 QDir assetsDir = QDir(QCoreApplication::applicationDirPath() + "../../../../angular/assets");
@@ -147,7 +147,7 @@ void Backend::removeItem(const QString &item)
 ### 4. Connecting to Backend and getting data
 When WebSocket is connected to QWebSocketServer, we request the backend object and make it global across our Angular $scope:
 ```javascript
-	/* Websocket communication */
+	/* WebSocket communication */
 	$scope.wsUrl = (window.location.protocol === 'https:' ? 'wss://' : 'ws://') +  window.location.hostname + ':8001';
 	$scope.notificationSocket = new WebSocket($scope.wsUrl);
 
@@ -182,7 +182,7 @@ C++ methods declared as **public slots** are becoming JavaScript object's method
 ```
 
 ### 6. Handling events
-JavaScript event handlers are connected to the remote object's slots in similar way the lambda-style C++ hadlers are connected by the *QObject::connect()* method:  
+JavaScript event handlers are connected to the remote object's slots in similar way the lambda-style C++ hadlers are connected by *QObject::connect()* method:  
 ```javascript
 	/* item added on backend */
 	$scope.backend.itemAdded.connect(function(item) {
@@ -264,7 +264,7 @@ Remote object's properties can be edited with Angular's **ng-model** directive a
 	</div>
   </div>
 ```
-In our example though, we edit a temporary $scope variable *newName*, and assign it to *backend.userName* when the user confirms modification in the Profile dialog:
+In our example though, we edit a temporary $scope variable *newName*, and assign it to *backend.userName* when the user confirms the modification in the Profile dialog:
 
 ```javascript
 	/* show profile dialog */
@@ -279,7 +279,7 @@ In our example though, we edit a temporary $scope variable *newName*, and assign
 			$( "#profile" ).modal('hide');
 	}
 ```
-If you replace ng-model="newName" with ng-model="backend.userName", the user name will be getting updated in the top menu (and on backend) right away while the user types in the Profile dialog. In this case the temporary *newName* variable is not needed.
+If you replace ng-model="newName" with ng-model="backend.userName", the user name will be getting updated in the top menu (and on the backend) right away while the user types in the Profile dialog. In this case the temporary *newName* variable is not needed.
 
 # Conclusion
 I believe the discussed approach can be concedered an interesting alternative to the classical AJAX interactions, especially when it comes to reducing the coding complexity and effort. Besides, it is more *data-centric*, which allows you to isolate the application levels properly and focus on data and business logic on each of them instead of coding and debugging the communication. Hope it helps someone.
