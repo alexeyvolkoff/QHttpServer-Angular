@@ -191,7 +191,7 @@ JavaScript event handlers are connected to the object's slots in similar way as 
 Thus, we update $scope as soon as data is updated on the backend side.
 
 ### 5. Displaying data
-Angular's **ng-repeat** is a powerful tool to display the list of data in repeatable element:
+Angular's **ng-repeat** is a powerful tool to display the list of items in repeatable styled element:
 ```html
 <div class="card-body">
 	<div class="flex-row">
@@ -211,7 +211,8 @@ Angular's **ng-repeat** is a powerful tool to display the list of data in repeat
 	</div>
 </div>
 ```
-User name property is displayed in top menu in Angular markup as {{backend.userName}}.
+The **ng-click**="removeItem($index)" links the currently displaued item with the remove handler.
+User name property is displayed in the top menu as {{backend.userName}}.
 
 ### 5. Editing data
 Remote object's properties can be edited with Angular's **ng-model** directive as usual $sope variables. 
