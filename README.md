@@ -73,8 +73,10 @@ The Backend class is much self-explaining. For our example, we expose userName a
 class Backend: public QObject
 {
 	Q_OBJECT
+	/* WebSocket communication  */	
 	QWebChannel m_webChannel;
 	WebSocketClientWrapper m_clientWrapper;
+	/* Data */
 	QString m_userName;
 	QStringList m_items;
 public:
