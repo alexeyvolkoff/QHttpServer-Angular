@@ -135,7 +135,6 @@ As soon as websocket is connected to QWebSocketServer, we request the backend ob
 					$scope.products = $scope.backend.items;
 		};
 ```
-We also get backend's items property to display it as list with **ng-repeat** directive. 
 
 ### 4. Invoking mothods
 C++ methods declared as **public slots** are becoming JavaScript object's methods that can be invoked transparently:
