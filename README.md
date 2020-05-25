@@ -257,4 +257,4 @@ In our example though, we edit a temporary $scope variable newName, and assign i
 	}
 ```
 # Conclusion
-We beleave that WebSockets in combination with Qt's signals/slots facility can be concedered an interesting alternative to classical approach like AJAX, especially when it comes to reducing the coding effort. Hope it helps someone.
+I believe that demostrated approach can be concedered an interesting alternative to a classical AJAX approach, especially when it comes to reducing the coding effort. Hope it helps someone.
