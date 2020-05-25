@@ -159,7 +159,7 @@ C++ methods declared as **public slots** are becoming JavaScript object's method
 ```
 
 ### 4. Handling events
-JavaScript event handlers are connected to the object's slots in similar way as *lambda-style* *QObject::connect()* does:  
+JavaScript event handlers are connected to the remote object's slots in similar way as lambda-style C++ hadlers are connected by the *QObject::connect()* method:  
 ```javascript
 	/* item added on backend */
 	$scope.backend.itemAdded.connect(function(item) {
