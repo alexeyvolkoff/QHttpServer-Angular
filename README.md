@@ -211,7 +211,7 @@ Angular's **ng-repeat** is a powerful tool to display the list of items in repea
 	</div>
 </div>
 ```
-The **ng-click**="removeItem($index)" links the currently displaued item with the remove handler.
+The directive **ng-click**="removeItem($index)" links the displayed item with the remove handler.
 User name property is displayed in the top menu as {{backend.userName}}.
 
 ### 5. Editing data
