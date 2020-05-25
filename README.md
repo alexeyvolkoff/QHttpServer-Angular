@@ -20,7 +20,7 @@ You can add/remove items to the Shopping list and modify your user name in the P
 # How it works
 Most of complexities are hidden under the hood. While QHttpServer serves plain HTML pages, WebSocketClientWrapper connects WebSocket used by JavaScript to C++ class Backend (QObject descendant) running in server. Both communicate with each other in their native way: JavaScript sees Backend as a JavaScript object, invokes its methods, gets/sets properies, subscribes to events (signals). Backend, on the other hand, behaves as a normal QObject, client-agnostically:  it just provides slots and emits signals as usual, event handlers are getting fired in JavaSript without extra coding.  Angular (formely AngularJS) framework allows you to display your backend's data in DOM elements as well as edit QObject's properties right away in **ng-model** directive, and yes, with no coding. 
 
-### 1. Serving a static html
+### 1. Serving the plain html
 We serve static html pages from the examples/angular/assets directory:
 ```c++
 QDir assetsDir = QDir(QCoreApplication::applicationDirPath() + "../../../../angular/assets");
@@ -40,9 +40,34 @@ httpServer.route("/<arg>", [assetsRootDir] (const QUrl &url) {
     return QHttpServerResponse::fromFile(QStringLiteral(":/assets/%1").arg(url.path()));
 });
 ```
-Do not forget to add your files to project's *.qrc* resource list.
+Do not forget to add all required HTML/css/js files to your project's *.qrc* resource list.
 
-### 2. Backend class
+### 2. Angulariziation of html template
+For this example we took [SB Admin 2](https://startbootstrap.com/template-overviews/sb-admin-2/) - a nice looking html template based on Boostrap markup. We have sligtly modified index.html by including Angular engine and Qt's qwebchannel.js script. We also have added script section for our AngularJS app: 
+
+```html
+<head>
+ ...
+  <!-- AngularJS scripts -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <!-- qwebchannel -->
+  <script src="qwebchannel/qwebchannel.js"></script>
+</head>
+
+<!-- alexey: AngularJS app -->
+<script>
+	var app = angular.module("qtAngularDemo", []);
+	app.controller("qtCtrl", function($scope) {
+		$scope.products = [];
+		...
+	});
+</script>	
+
+<body id="page-top" ng-app="qtAngularDemo" ng-controller="qtCtrl">	
+```
+Referencing the app and controller in HTML body directives **ng-app="qtAngularDemo"** and **ng-controller="qtCtrl"** will allow us to use $scope variables wherever we need them in DOM. Angular will refresh the element whenever the referenced variable changes its value.
+
+### 3. Backend class
 The Backend class is much self-explaining. For our example, we expose userName and items properties.  The only thing to mention in regard of read/write properies is mandatory NOTIFY member in Q_PROPERTY definition. Public slots and signals are also exposed.
 ```c++
 class Backend: public QObject
@@ -116,8 +141,8 @@ void Backend::removeItem(const QString &item)
 }
 
 ```
- 
-### 3. Connecting to Backend and getting data
+
+### 4. Connecting to Backend and getting data
 As soon as websocket is connected to QWebSocketServer, we request the backend object and make it global across our Angular $scope:
 ```javascript
 	/* Websocket communication */
@@ -135,7 +160,7 @@ As soon as websocket is connected to QWebSocketServer, we request the backend ob
 		};
 ```
 
-### 4. Invoking mothods
+### 5. Invoking mothods
 C++ methods declared as **public slots** are becoming JavaScript object's methods that can be invoked transparently:
 ```javascript
 	/* add new item request  */
@@ -154,7 +179,7 @@ C++ methods declared as **public slots** are becoming JavaScript object's method
 	};
 ```
 
-### 4. Handling events
+### 6. Handling events
 JavaScript event handlers are connected to the remote object's slots in similar way as lambda-style C++ hadlers are connected by the *QObject::connect()* method:  
 ```javascript
 	/* item added on backend */
@@ -186,7 +211,7 @@ JavaScript event handlers are connected to the remote object's slots in similar 
 ```
 Thus, we update $scope as soon as data is updated on the backend side.
 
-### 5. Displaying data
+### 7. Displaying data
 Angular's **ng-repeat** is a powerful tool to display the list of items in repeatable styled element:
 ```html
 <div class="card-body">
@@ -210,7 +235,7 @@ Angular's **ng-repeat** is a powerful tool to display the list of items in repea
 The directive **ng-click**="removeItem($index)" links the displayed item with the remove handler.
 User name property is displayed in the top menu as {{backend.userName}}.
 
-### 5. Editing data
+### 8. Editing data
 Remote object's properties can be edited with Angular's **ng-model** directive as usual $sope variables. 
 ```html
   <!-- Profile modal -->
