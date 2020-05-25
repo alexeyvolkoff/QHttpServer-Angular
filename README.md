@@ -130,7 +130,6 @@ As soon as websocket is connected to QWebSocketServer, we request the backend ob
 			console.log('web channel connected');
 			/* make backend object accessible globally in scope */
 			$scope.backend = channel.objects.backend;
-
 			/* get item list from backend */
 			$scope.products = $scope.backend.items;
 		};
@@ -141,13 +140,11 @@ C++ methods declared as **public slots** are becoming JavaScript object's method
 ```javascript
 	/* add new item request  */
 	$scope.addItem = function () {
-
 		if ($scope.products.indexOf($scope.addMe) == -1) {
 			$scope.backend.addItem($scope.addMe);
 		} else {
 			$scope.notify ('warning', $scope.addMe + ' - already added');
 		}
-
 		$scope.addMe = '';
 	};
 
@@ -195,13 +192,13 @@ Angular's **ng-repeat** is a powerful tool to display the list of items in repea
 <div class="card-body">
 	<div class="flex-row">
 		<div class="mb-4 small d-flex flex-row justify-content-between" ng-repeat="item in products">
-				<span class="mr-2 pull-left"><i class="fas fa-check text-primary"></i> {{item}}</span>
-				<span class="mr-2 pull-right" style="cursor: pointer;" ng-click="removeItem($index)"><i class="fas fa-times-circle text-secondary"></i></span>
+			<span class="mr-2 pull-left"><i class="fas fa-check text-primary"></i> {{item}}</span>
+			<span class="mr-2 pull-right" style="cursor: pointer;" ng-click="removeItem($index)"><i class="fas fa-times-circle text-secondary"></i></span>
 		</div>
 		<div class="mb-4 small"></div>
-			<div class="input-group">
-				<input type="text" class="form-control bg-light border-0 small" ng-model="addMe" placeholder="Add item" aria-label="Add" aria-describedby="basic-addon2">
-				<div class="input-group-append">
+		<div class="input-group">
+			<input type="text" class="form-control bg-light border-0 small" ng-model="addMe" placeholder="Add item" aria-label="Add" aria-describedby="basic-addon2">
+			<div class="input-group-append">
 				<button class="btn btn-primary" type="button" ng-click="addItem()">
 					<i class="fas fa-plus fa-sm"></i>
 				</button>
@@ -223,17 +220,17 @@ Remote object's properties can be edited with Angular's **ng-model** directive a
 		<form ng-submit="updateProfile()">
 			<div class="modal-header">
 				<h5 class="modal-title" id="exampleModalLabel">Profile - {{backend.userName}}</h5>
-					<button class="close" type="button" data-dismiss="modal" aria-label="Close">
-					 <span aria-hidden="true">×</span>
-					</button>
+				<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
 			</div>
 			<div class="modal-body">
-			  <label class="radio">User name:</label>
-			  <input class="form-control" ng-model="newName" autofocus="autofocus">
+			  	<label class="radio">User name:</label>
+			  	<input class="form-control" ng-model="newName" autofocus="autofocus">
 			</div>
 			<div class="modal-footer">
-			  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-			  <button type="submit" class="btn btn-primary">OK</button>
+			  	<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+			  	<button type="submit" class="btn btn-primary">OK</button>
 			</div>
 		</form>
 	  </div>
