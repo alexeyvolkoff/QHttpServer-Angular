@@ -237,7 +237,7 @@ Remote object's properties can be edited with Angular's **ng-model** directive a
 	</div>
   </div>
 ```
-In our example though, we edit a temporary $scope variable newName, and assign it to backend.userName when the user confirms modification in the Profile dialog:
+In our example though, we edit a temporary $scope variable *newName*, and assign it to *backend.userName* when the user confirms modification in the Profile dialog:
 
 ```javascript
 	/* show profile dialog */
@@ -252,7 +252,7 @@ In our example though, we edit a temporary $scope variable newName, and assign i
 			$( "#profile" ).modal('hide');
 	}
 ```
-If you replace ng-model="newName" with ng-model="backend.userName", the user name will be updated in the top menu (and on backend) right away while the user types in the Profile dialog.
+If you replace ng-model="newName" with ng-model="backend.userName", the user name will be updated in the top menu (and on backend) right away while the user types in the Profile dialog. In this case the temporary *newName* variable is not needed.
 
 # Conclusion
 I believe that demostrated approach can be concedered an interesting alternative to a classical AJAX approach, especially when it comes to reducing the coding effort. Hope it helps someone.
