@@ -175,7 +175,7 @@ C++ methods declared as **public slots** are becoming JavaScript object's method
 		$scope.addMe = '';
 	};
 
-	/* remove item request from frontend */
+	/* remove item request */
 	$scope.removeItem = function (idx) {
 		$scope.backend.removeItem($scope.products[idx]);
 	};
