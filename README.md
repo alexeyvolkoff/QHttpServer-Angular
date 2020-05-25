@@ -229,7 +229,7 @@ Remote object's properties can be edited with Angular's **ng-model** directive a
 			</div>
 			<div class="modal-body">
 			  <label class="radio">User name:</label>
-			  <input class="form-control" **ng-model="newName"** autofocus="autofocus">
+			  <input class="form-control" ng-model="newName" autofocus="autofocus">
 			</div>
 			<div class="modal-footer">
 			  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
