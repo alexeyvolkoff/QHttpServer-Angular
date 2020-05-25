@@ -20,7 +20,7 @@ You can add/remove items to the Shopping list and modify your user name in the P
 # How it works
 Most of complexities are hidden under the hood. While QHttpServer serves plain HTML pages, WebSocketClientWrapper connects WebSocket used by JavaScript to C++ class Backend (QObject descendant) running in server. Both communicate with each other in their native way: JavaScript sees Backend as a JavaScript object, invokes its methods, gets/sets properies, subscribes to events (signals). Backend, on the other hand, behaves as a normal QObject, client-agnostically:  it just provides slots and emits signals as usual, event handlers are getting fired in JavaSript without extra coding.  Angular (formely AngularJS) framework allows you to display your backend's data in DOM elements as well as edit QObject's properties right away in **ng-model** directive, and yes, with no coding. 
 
-### 1. Serving the plain html
+### 1. Serving the plain html pages
 We serve static html pages from the examples/angular/assets directory:
 ```c++
 QDir assetsDir = QDir(QCoreApplication::applicationDirPath() + "../../../../angular/assets");
@@ -43,7 +43,7 @@ httpServer.route("/<arg>", [assetsRootDir] (const QUrl &url) {
 Do not forget to add all required HTML/css/js files to your project's *.qrc* resource list.
 
 ### 2. Angulariziation of html template
-For this example we took [SB Admin 2](https://startbootstrap.com/template-overviews/sb-admin-2/) - a nice looking html template based on Boostrap markup. We have sligtly modified index.html by including Angular engine and Qt's qwebchannel.js script. We also have added script section for our AngularJS app: 
+For this example we took [SB Admin 2](https://startbootstrap.com/template-overviews/sb-admin-2/) - a nice looking html template based on Bootstrap markup. We have sligtly modified index.html by including Angular engine and Qt's qwebchannel.js script. We also have added script section for our AngularJS app: 
 
 ```html
 <head>
