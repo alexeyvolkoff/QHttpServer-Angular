@@ -20,8 +20,8 @@ You can add/remove items to the Shopping list and modify your user name in the P
 # How it works
 Most of complexities are hidden under the hood. While QHttpServer serves plain HTML pages, WebSocketClientWrapper connects WebSocket used by JavaScript to C++ class Backend (QObject descendant) running in server. Both communicate with each other in their native way: JavaScript sees Backend as a JavaScript object, invokes its methods, gets/sets properies, subscribes to events (signals). Backend, on the other hand, behaves as a normal QObject, client-agnostically:  it just provides slots and emits signals as usual, event handlers are getting fired in JavaSript without extra coding.  Angular (formely AngularJS) framework allows you to display your backend's data in DOM elements as well as edit QObject's properties right away in **ng-model** directive, and yes, with no coding. 
 
-### 1. Serving static html
-We serve html pages from examples/angular/assets:
+### 1. Serving a static html
+We serve static html pages from the examples/angular/assets directory:
 ```c++
 QDir assetsDir = QDir(QCoreApplication::applicationDirPath() + "../../../../angular/assets");
 const QString assetsRootDir = assetsDir.absolutePath();
