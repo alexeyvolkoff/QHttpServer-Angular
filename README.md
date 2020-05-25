@@ -161,31 +161,31 @@ C++ methods declared as **public slots** are becoming JavaScript object's method
 ### 4. Handling events
 JavaScript event handlers are connected to the object's slots in similar way as *lambda-style* *QObject::connect()* does:  
 ```javascript
-		/* item added on backend */
-		$scope.backend.itemAdded.connect(function(item) {
-				console.log('Item added: ' + item);
-				$scope.products.push(item);
-				$scope.notify('info', 'Item added: ' + item);
-				$scope.$apply();
-		});
+	/* item added on backend */
+	$scope.backend.itemAdded.connect(function(item) {
+		console.log('Item added: ' + item);
+		$scope.products.push(item);
+		$scope.notify('info', 'Item added: ' + item);
+		scope.$apply();
+	});
 
-		/* item removed on backend */
-		$scope.backend.itemRemoved.connect(function(item) {
-				var idx = $scope.products.indexOf(item);
-				if (idx !== -1) {
-							console.log('Item removed: ' + item);
-							$scope.products.splice(idx, 1);
-							$scope.notify('info', 'Item removed: ' + item);
-							$scope.$apply();
-				}
-		});
+	/* item removed on backend */
+	$scope.backend.itemRemoved.connect(function(item) {
+	var idx = $scope.products.indexOf(item);
+		if (idx !== -1) {
+			console.log('Item removed: ' + item);
+			$scope.products.splice(idx, 1);
+			$scope.notify('info', 'Item removed: ' + item);
+			$scope.$apply();
+		}
+	});
 
-		/* user renamed on backend */
-		$scope.backend.userNameChanged.connect(function(newUserName) {
-				console.log('User renamed: ' + newUserName);
-				$scope.notify('info', 'User renamed: ' + newUserName);
-				$scope.$apply();
-		});
+	/* user renamed on backend */
+	$scope.backend.userNameChanged.connect(function(newUserName) {
+		console.log('User renamed: ' + newUserName);
+		$scope.notify('info', 'User renamed: ' + newUserName);
+		$scope.$apply();
+	});
 
 ```
 Thus, we update $scope as soon as data is updated on the backend side.
@@ -214,7 +214,33 @@ Angular's **ng-repeat** is a powerful tool to display the list of data in repeat
 User name property is displayed in top menu in Angular markup as {{backend.userName}}.
 
 ### 5. Editing data
-Remote object's properties can be edited with Angular's **ng-model** directive as usual $sope variables. In our example though, we edit a temporary $scope variable newName, and assign it to Backend's userName when the user confirms modification in the Profile dialog: 
+Remote object's properties can be edited with Angular's **ng-model** directive as usual $sope variables. 
+```html
+  <!-- Profile modal -->
+  <div class="modal animated fade" id="profile">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+		<form ng-submit="updateProfile()">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Profile - {{backend.userName}}</h5>
+					<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+					 <span aria-hidden="true">×</span>
+					</button>
+			</div>
+			<div class="modal-body">
+			  <label class="radio">User name:</label>
+			  <input class="form-control" **ng-model="newName"** autofocus="autofocus">
+			</div>
+			<div class="modal-footer">
+			  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+			  <button type="submit" class="btn btn-primary">OK</button>
+			</div>
+		</form>
+	  </div>
+	</div>
+  </div>
+```
+In our example though, we edit a temporary $scope variable newName, and assign it to Backend's userName when the user confirms modification in the Profile dialog:
 
 ```javascript
 	/* show profile dialog */
@@ -230,4 +256,4 @@ Remote object's properties can be edited with Angular's **ng-model** directive a
 	}
 ```
 # Conclusion
-We beleave that WebSockets in combination with Qt's signals/slots facility can be concedered an interesting alternative to classical approches of coding the frontend-to-backend communications like AJAX or REST, especially when it comes to code complexity and reduction of required efforts. Hope it helps someone.
+We beleave that WebSockets in combination with Qt's signals/slots facility can be concedered an interesting alternative to classical approach like AJAX, especially when it comes to reducing the coding effort. Hope it helps someone.
