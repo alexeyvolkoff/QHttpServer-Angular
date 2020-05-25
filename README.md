@@ -120,41 +120,41 @@ void Backend::removeItem(const QString &item)
 ### 3. Connecting to Backend and getting data
 As soon as websocket is connected to QWebSocketServer, we request the backend object and make it global across our Angular $scope:
 ```javascript
-    	/* Websocket communication */
+	/* Websocket communication */
 	$scope.wsUrl = (window.location.protocol === 'https:' ? 'wss://' : 'ws://') +  window.location.hostname + ':8001';
-		$scope.notificationSocket = new WebSocket($scope.wsUrl);
+	$scope.notificationSocket = new WebSocket($scope.wsUrl);
 
-		if ($scope.notificationSocket)
-			$scope.notificationSocket.onopen = function() {
-				new QWebChannel($scope.notificationSocket, function(channel) {
-					console.log('web channel connected');
-					/* make backend object accessible globally in scope */
-					$scope.backend = channel.objects.backend;
+	if ($scope.notificationSocket)
+		$scope.notificationSocket.onopen = function() {
+		new QWebChannel($scope.notificationSocket, function(channel) {
+			console.log('web channel connected');
+			/* make backend object accessible globally in scope */
+			$scope.backend = channel.objects.backend;
 
-					/* get item list from backend */
-					$scope.products = $scope.backend.items;
+			/* get item list from backend */
+			$scope.products = $scope.backend.items;
 		};
 ```
 
 ### 4. Invoking mothods
 C++ methods declared as **public slots** are becoming JavaScript object's methods that can be invoked transparently:
 ```javascript
-		/* add new item request  */
-		$scope.addItem = function () {
+	/* add new item request  */
+	$scope.addItem = function () {
 
-			if ($scope.products.indexOf($scope.addMe) == -1) {
-				$scope.backend.addItem($scope.addMe);
-			} else {
-				$scope.notify ('warning', $scope.addMe + ' - already added');
-			}
+		if ($scope.products.indexOf($scope.addMe) == -1) {
+			$scope.backend.addItem($scope.addMe);
+		} else {
+			$scope.notify ('warning', $scope.addMe + ' - already added');
+		}
 
-			$scope.addMe = '';
-		};
+		$scope.addMe = '';
+	};
 
-		/* remove item request from frontend */
-		$scope.removeItem = function (idx) {
-			$scope.backend.removeItem($scope.products[idx]);
-		};
+	/* remove item request from frontend */
+	$scope.removeItem = function (idx) {
+		$scope.backend.removeItem($scope.products[idx]);
+	};
 ```
 
 ### 4. Handling events
