@@ -145,7 +145,7 @@ void Backend::removeItem(const QString &item)
 ```
 
 ### 4. Connecting to Backend and getting data
-As soon as websocket is connected to QWebSocketServer, we request the backend object and make it global across our Angular $scope:
+When WebSocket is connected to QWebSocketServer, we request the backend object and make it global across our Angular $scope:
 ```javascript
 	/* Websocket communication */
 	$scope.wsUrl = (window.location.protocol === 'https:' ? 'wss://' : 'ws://') +  window.location.hostname + ':8001';
