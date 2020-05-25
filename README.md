@@ -189,7 +189,7 @@ JavaScript event handlers are connected to the remote object's slots in similar 
 		console.log('Item added: ' + item);
 		$scope.products.push(item);
 		$scope.notify('info', 'Item added: ' + item);
-		scope.$apply();
+		$scope.$apply();
 	});
 
 	/* item removed on backend */
@@ -279,7 +279,7 @@ In our example though, we edit a temporary $scope variable *newName*, and assign
 			$( "#profile" ).modal('hide');
 	}
 ```
-If you replace ng-model="newName" with ng-model="backend.userName", the user name will be updated in the top menu (and on backend) right away while the user types in the Profile dialog. In this case the temporary *newName* variable is not needed.
+If you replace ng-model="newName" with ng-model="backend.userName", the user name will be getting updated in the top menu (and on backend) right away while the user types in the Profile dialog. In this case the temporary *newName* variable is not needed.
 
 # Conclusion
-I believe that demostrated approach can be concedered an interesting alternative to a classical AJAX approach, especially when it comes to reducing the coding effort. Hope it helps someone.
+I believe that discussed approach can be concedered an interesting alternative to a classical AJAX approach, especially when it comes to reducing the coding complexity and effort. Besides, it is more *data-centric*, which allows you to properly isolate the application levels and focus on data and business logic on each of them instead of coding and debugging the communication. Hope it helps someone.
