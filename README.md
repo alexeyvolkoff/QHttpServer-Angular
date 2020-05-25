@@ -65,7 +65,7 @@ For this example we took [SB Admin 2](https://startbootstrap.com/template-overvi
 
 <body id="page-top" ng-app="qtAngularDemo" ng-controller="qtCtrl">	
 ```
-Referencing the app and controller in HTML body directives **ng-app="qtAngularDemo"** and **ng-controller="qtCtrl"** will allow us to use $scope variables wherever we need them in DOM. Angular will refresh the element whenever the referenced variable changes its value.
+Referencing the app and controller in HTML body directives **ng-app="qtAngularDemo"** and **ng-controller="qtCtrl"** will allow us to use $scope variables and expressions (like {{products.length}}) wherever we need them in DOM. Angular will refresh the element whenever the referenced variable changes its value.
 
 ### 3. Backend class
 The Backend class is much self-explaining. For our example, we expose userName and items properties.  The only thing to mention in regard of read/write properies is mandatory NOTIFY member in Q_PROPERTY definition. Public slots and signals are also exposed.
