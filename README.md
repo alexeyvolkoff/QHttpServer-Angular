@@ -18,7 +18,7 @@ The purpose of this app is to demonstrate how to run modern frontend atop of C++
 You can add/remove items to the Shopping list and modify your user name in the Profile dialog. As user adds/removes data or changes the name, notifications from backend get displayed in the Notifications widget. 
 
 # How it works
-Most of complexities are hidden under the hood. While QHttpServer serves plain HTML pages, WebSocketClientWrapper connects WebSocket used by JavaScript to C++ class Backend (QObject descendant) running in server. Both communicate with each other in their native way: JavaScript sees Backend as a JavaScript object, invokes its methods, gets/sets properies, subscribes to events (signals). Backend, on the other hand, behaves as an ordinary QObject, client-agnostically:  it just provides slots and emits signals. Event handlers are getting fired in JavaSript without extra coding.  Angular (formely AngularJS) framework allows you to display your backend's data in DOM elements as well as edit QObject's properties right away in **ng-model** directive with minimal coding. 
+Most of complexities are hidden under the hood. While QHttpServer serves plain HTML pages, WebSocketClientWrapper connects WebSocket used by JavaScript to C++ class Backend (QObject descendant) running in server. Both communicate with each other in their native way: JavaScript sees Backend as a JavaScript object, invokes its methods, gets/sets properies, subscribes to events (signals). Backend, on the other hand, behaves as an ordinary QObject, client-agnostically:  it just provides slots and emits signals. Event handlers are getting fired in JavaSript without extra coding.  Angular (formely AngularJS) framework allows you to display your backend's data in DOM elements as well as modify QObject's exposed properties right away in **ng-model** directive. 
 
 ### 1. Serving plain html pages
 We serve static html pages from the examples/angular/assets directory:
@@ -34,7 +34,7 @@ httpServer.route("/<arg>", [assetsRootDir] (const QUrl &url) {
     return QHttpServerResponse::fromFile(assetsRootDir + QStringLiteral("/%1").arg(url.path()));
 });
 ```
-It is also possible to provide the files right from the application's resource by prepanding the relative path extracted from url with ":/" prefix:
+It is also possible to provide the files right from the application's resource by prepanding the relative path extracted from the URL with ":/" prefix:
 ```c++
 httpServer.route("/<arg>", [assetsRootDir] (const QUrl &url) {
     return QHttpServerResponse::fromFile(QStringLiteral(":/assets/%1").arg(url.path()));
@@ -43,7 +43,7 @@ httpServer.route("/<arg>", [assetsRootDir] (const QUrl &url) {
 Do not forget to add all required HTML/css/js files to your project's *.qrc* resource list.
 
 ### 2. Angulariziation of html template
-For this example we took [SB Admin 2](https://startbootstrap.com/template-overviews/sb-admin-2/) - a nice looking html template based on Bootstrap markup. We have sligtly modified index.html by including Angular engine and Qt's qwebchannel.js script. We also have added script section for our AngularJS app: 
+For this example we took [SB Admin 2](https://startbootstrap.com/template-overviews/sb-admin-2/) - a nice looking html template based on Bootstrap markup. We have sligtly modified *index.html* by including Angular engine and Qt's qwebchannel.js script. We also have added script section for our AngularJS app: 
 
 ```html
 <head>
@@ -65,7 +65,7 @@ For this example we took [SB Admin 2](https://startbootstrap.com/template-overvi
 
 <body id="page-top" ng-app="qtAngularDemo" ng-controller="qtCtrl">	
 ```
-Referencing the app and controller in HTML body directives **ng-app="qtAngularDemo"** and **ng-controller="qtCtrl"** will allow us to use $scope variables and expressions (like {{products.length}}) wherever we need them in DOM. Angular will refresh the element whenever the referenced variable changes its value.
+Referencing *app* and *controller* in HTML body's directives **ng-app="qtAngularDemo"** and **ng-controller="qtCtrl"** will allow us to use $scope variables and expressions (like {{products.length}}) wherever we need them in DOM. Angular will refresh the element whenever the referenced variable changes its value.
 
 ### 3. Backend class
 The Backend class is pretty much self-explaining. For our example, we expose *userName* and *items* properties.  The only thing to mention in regard of read/write properies is mandatory NOTIFY member in Q_PROPERTY definition. Public slots and signals are exposed as JavaScript object's methods and events.
