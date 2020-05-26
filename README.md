@@ -68,7 +68,7 @@ For this example we took [SB Admin 2](https://startbootstrap.com/template-overvi
 Referencing app and controller in HTML body directives ng-app="qtAngularDemo" and ng-controller="qtCtrl" will allow us to use $scope variables and expressions (like {{products.length}}) wherever we want them to appear in DOM. Angular will refresh the element whenever the referenced variable changes its value.
 
 ### 3. Backend class
-The Backend class is pretty much self-explaining. For our example, we expose *userName* and *items* properties.  The only thing to mention in regard of read/write properies is mandatory NOTIFY member in Q_PROPERTY definition. Public slots and signals are exposed as JavaScript object's methods and events.
+The Backend class is pretty much self-explaining. For our example, we expose *userName* and *items* properties.  The only thing to mention in regard of read/write properties is mandatory NOTIFY member in Q_PROPERTY definition. Public slots and signals are exposed as JavaScript object's methods and events.
 ```c++
 class Backend: public QObject
 {
@@ -282,4 +282,4 @@ In our example though, we edit a temporary $scope variable *newName*, and assign
 If you replace ng-model="newName" with ng-model="backend.userName", the user name will be getting updated in the top menu (and on the backend) right away while the user types in the Profile dialog. In this case the temporary *newName* variable is not needed.
 
 # Conclusion
-I believe the discussed approach can be concedered an interesting alternative to the classical AJAX interactions, especially when it comes to reducing the coding complexity and effort. Besides, it is more *data-centric*, which allows you to isolate the application levels properly and focus on data and business logic on each of them instead of coding and debugging the communication. Hope it helps someone.
+I believe the discussed approach can be concedered a promising alternative to classical AJAX interactions and worth trying, especially when it comes to reducing the coding complexity and effort. Besides, it is more *data-centric*, which allows you to isolate the application levels properly and focus on data and business logic on each of them instead of coding and debugging the communication. Hope it helps someone.
