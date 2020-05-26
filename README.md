@@ -211,7 +211,7 @@ JavaScript event handlers are connected to the remote object's slots in similar 
 	});
 
 ```
-Thus, when the data is updated on the backend side, $scope variables get updated too, and Angular framework will do the rest to keep DOM elements in sync. By simply emitting C++ signals, you update your dynamic web UI with no extra effort. Cool, even for native deskop frameworks.
+Thus, when the data is updated on the backend side, $scope variables get updated too, and Angular framework will do the rest to keep DOM elements in sync. By simply emitting C++ signals, you update your dynamic web UI with no extra effort. Cool, even for desktop-native frameworks.
 
 ### 7. Displaying data
 Angular's **ng-repeat** is a powerful tool to display the list of items in repeatable styled element:
