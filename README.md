@@ -182,7 +182,7 @@ C++ methods declared as **public slots** are becoming JavaScript object's method
 ```
 
 ### 6. Handling events
-JavaScript event handlers are connected to the remote object's slots in similar way the lambda-style C++ hadlers are connected by *QObject::connect()* method:  
+JavaScript event handlers are connected to the remote object's slots in similar way the lambda-style C++ handlers are connected to QObject by *connect()* method:  
 ```javascript
 	/* item added on backend */
 	$scope.backend.itemAdded.connect(function(item) {
@@ -211,7 +211,7 @@ JavaScript event handlers are connected to the remote object's slots in similar 
 	});
 
 ```
-Thus, we update $scope as soon as data is updated on the backend side.
+Thus, when the data is updated on the backend side, $scope variables get updated too, and Angular framework will do the rest to keep DOM elements in sync. By simply emitting C++ signals, you update your dynamic web UI with no extra effort. Cool, even for native deskop frameworks.
 
 ### 7. Displaying data
 Angular's **ng-repeat** is a powerful tool to display the list of items in repeatable styled element:
@@ -234,7 +234,7 @@ Angular's **ng-repeat** is a powerful tool to display the list of items in repea
 	</div>
 </div>
 ```
-The directive **ng-click**="removeItem($index)" links the displayed item with the remove handler.
+The directive ng-click="removeItem($index)" links the displayed item with the remove handler.
 User name property is displayed in the top menu as {{backend.userName}}.
 
 ### 8. Editing data
@@ -279,7 +279,7 @@ In our example though, we edit a temporary $scope variable *newName*, and assign
 			$( "#profile" ).modal('hide');
 	}
 ```
-If you replace ng-model="newName" with ng-model="backend.userName", the user name will be getting updated in the top menu (and on the backend) right away while the user types in the Profile dialog. In this case the temporary *newName* variable is not needed.
+If you replace ng-model="newName" with ng-model="backend.userName", the user name will be getting updated in the top menu (and on the backend) right away while the user types in the Profile dialog. If you are OK with it, then the temporary *newName* variable is not needed.
 
 # Conclusion
 I believe the discussed approach can be concedered an interesting alternative to classical AJAX interactions and worth trying, especially when it comes to reducing the coding complexity and effort. Besides, it is more *data-centric*, which allows you to separate the application layers properly and focus on data flow and business logic on each of them instead of coding and debugging the communication. Hope it helps someone.
