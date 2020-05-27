@@ -162,7 +162,7 @@ When WebSocket is connected to QWebSocketServer, we request the backend object a
 		};
 ```
 
-### 5. Invoking mothods
+### 5. Invoking methods
 C++ methods declared as **public slots** are becoming JavaScript object's methods that can be invoked transparently:
 ```javascript
 	/* add new item request  */
