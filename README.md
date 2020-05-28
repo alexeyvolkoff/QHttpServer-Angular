@@ -1,5 +1,5 @@
 # AngularJS Demo App for QHttpServer
-The purpose of this app is to demonstrate how to run modern frontend atop of C++/Qt backend making advantage of Qt's signals/slots facility for implementing the frontend-to-backend communication.
+The purpose of this app is to demonstrate how to run modern frontend atop of C++/Qt backend making advantage of Qt's signals/slots facility to simplify frontend-to-backend communication.
 
 ## Components
 - [SB Admin 2](https://startbootstrap.com/template-overviews/sb-admin-2/) - free Bootstrap 4 admin theme;
